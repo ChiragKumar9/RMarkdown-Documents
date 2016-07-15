@@ -1,0 +1,99 @@
+---
+title: "Phenomenal Plots"
+author: "Chirag Kumar"
+output: 
+  html_document:
+    toc: true
+    theme: united
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Plotting is a powerful tool that can show hidden relationships between two variables. In this document, I explore the power of plotting to create incredible and mind-boggling designs.
+
+## Plots!
+
+### Some basic plots
+Let's start off with a simple plot. Traditionally, I have always plotted by creating an x-vector, applying my function to it, and getting the y-vector. I then use the *plot()* command to see the relation between my vectors. For example:
+```{r, echo=TRUE}
+x <- seq(from = -100, to = 100, by = 1)
+y <- x^2
+plot(x, y)
+```
+This plot shows the function $y = x^{2}$.
+
+Let's do a couple more!
+
+#### Infinity
+Here we create the infinity symbol from the equation $y^{2} = x^{2} - x^{4}$
+
+```{r, echo=TRUE}
+x <- seq(from = -1, to = 1, by = .001)
+y <- sqrt(x^2 - x^4)
+plot(x, y, ylim = c(-.5, .5))
+points(x, -y)
+```
+
+
+We can get more complex and create a plot in 3D but only show 2 Dimensions. For example, we will plot $x = sin(2t), y = sin(3t)$ but not have a *t-axis*. Take a look:
+
+```{r, echo=TRUE}
+t <- seq(from = 0, to = 2*pi, by = .005)
+x <- sin(2*t)
+y <- sin(3*t)
+plot(x, y)
+```
+
+This is a pretty cool plot and incredible designs can be made using the basic trigonometry functions. 
+
+### Graphs from Trig Functions
+
+#### The Fish Curve and *curve()*
+Rather than using the *plot()* function which requires x and y vectors as input and creates a scatter plot, I will instead use the *curve()* function. The *curve()* function creates a continuous curve based on given equation.
+```{r, echo=TRUE}
+curve(sin(x), from = 0, to = 1.2*pi, xlim = c(0, 1.2*pi), ylim = c(-1, 1))
+curve(-sin(x), from = 0, to = 1.2*pi, add = TRUE)
+```
+
+
+This plot is actually about 5000 different functions all on the same set of axes. Plotting each function in a different color and tiny changes in the exponent allow for this very continuous looking rainbow cone.
+
+```{r, echo=TRUE}
+curve(sin(acos(x) * sin((acos(x)/2))), col = rainbow(1))
+for(j in seq(2, 500, by = .1)) {
+  curve(sin(acos(x) * sin((acos(x)/2)^j)), col = rainbow(j)[j], add = TRUE)
+}
+```
+
+#### The Out-of-Control Bow Tie
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+curve(x*sin(1/x), from = -.5, to = .5)
+```
+
+## Now For Something Totally Different
+### Python
+*knitr* is the package that allows me to embed R Code within the markdown document. I recently discovered that I can also embed **Python** code in this R Markdown document using *knitr*! If I set the *engine = 'python'* when setting up the block of code, the code will be executed in Python. *knitr* also has capabilities for executing code in many other languages. Let's take a look at using *knitr* for Python.
+
+```{r, echo=TRUE, engine = 'python'}
+for i in range(1, 101):
+  print(i)
+```
+
+
+
+### Shiny
+
+*Shiny* is an R package that makes R Markdown documents interactive. Let's take a look:
+
+
+## Questions
+
+Inline R code?
+Formatting like bullets?
+
